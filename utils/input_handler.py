@@ -50,7 +50,7 @@ def get_random_variables(precision: int) -> Tuple[List[float], int, Tuple[float,
             print('Lambda inválido. Lambda debe ser mayor que 0.')
             lambda_val = float(input('Ingresa lambda (λ): '))
         sample = generate_exponential_distribution(sample_size, precision, lambda_val)
-        return sample, 2, (0, 1 / lambda_val)
+        return sample, 2, (lambda_val)
 
     elif distribution_choice == 3:
         mean = float(input('Ingresa la media (μ): '))

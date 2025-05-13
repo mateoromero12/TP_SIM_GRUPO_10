@@ -36,7 +36,7 @@ def fe_normal(n, intervalos, parametros):
 
 # Devuelve una lista con las frecuencias esperadas para una distr exponencial
 def fe_exponencial(n, intervalos, parametros):
-    lam_da = parametros[0]
+    lam_da = parametros
     frecuencias = []
     
     for intervalo in intervalos:
