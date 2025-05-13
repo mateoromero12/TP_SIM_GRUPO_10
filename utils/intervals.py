@@ -1,6 +1,5 @@
 from typing import List, Tuple
 
-
 def calculate_intervals_and_frequencies(random_variables: List[float], num_classes: int) -> Tuple[List[Tuple[float, float]], List[int]]:
     """
     Calcula los intervalos y las frecuencias de las variables aleatorias generadas.
@@ -11,16 +10,19 @@ def calculate_intervals_and_frequencies(random_variables: List[float], num_class
 
     Returns:
         Una tupla que contiene:
-        - intervals: Lista de tuplas que representan los límites de cada intervalo.
+        - intervals: Lista de tuplas que representan los límites de cada intervalo (con 4 decimales).
         - frequency_counts: Lista de frecuencias para cada intervalo.
     """
     min_value = min(random_variables)
     max_value = max(random_variables)
     interval_size = (max_value - min_value) / num_classes
 
-    # Crear los intervalos
+    # Crear los intervalos redondeando a 4 decimales
     intervals = [
-        (min_value + i * interval_size, min_value + (i + 1) * interval_size)
+        (
+            round(min_value + i * interval_size, 4),
+            round(min_value + (i + 1) * interval_size, 4)
+        )
         for i in range(num_classes)
     ]
 

@@ -24,7 +24,7 @@ def display_intervals_and_frequencies(intervals: List[Tuple[float, float]], freq
         precision: Precisión decimal para mostrar los límites de los intervalos.
     """
     print('\nIntervalos y frecuencias:')
-    print(f'{"Intervalo":<25} {"Frecuencia":<10}')
+    print(f'{"Intervalo":<25} {"Frecuencia Observada":<10}')
     print('-' * 35)
     for i, (lower_bound, upper_bound) in enumerate(intervals):
         interval_str = f'[{lower_bound:.{precision}f}, {upper_bound:.{precision}f})'
@@ -50,4 +50,7 @@ def plot_histogram(intervals: List[Tuple[float, float]], frequency_counts: List[
     plt.title('Histograma de Variables Aleatorias')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.show()
+    plt.show(block=False)
+
+    # Esperar entrada del usuario para cerrar la ventana (opcional)
+    input("\n--- Presiona Enter para continuar ---")
