@@ -34,13 +34,13 @@ def main() -> None:
                 print("\n--- Prueba de Bondad Chi-Cuadrado ---")
                 frec_esperadas = frecuencia_esperada(dist_name, len(random_variables), intervals, params)
                 passed = chi_cuadrado(intervals, frequency_counts, frec_esperadas, dist_name)
-                print("Resultado:", "No se rechaza H0" if passed else "Se rechaza H0")
+                #print("Resultado:", "No se rechaza H0" if passed else "Se rechaza H0")
 
             else:
                 print("\n--- Prueba de Bondad Kolmogorov-Smirnov ---")
                 frec_esperadas = frecuencia_esperada(dist_name, len(random_variables), intervals, params)
                 passed = kolmogorov_smirnov(intervals, frequency_counts, frec_esperadas, len(random_variables))
-                print("Resultado:", "No se rechaza H0" if passed else "Se rechaza H0")
+                #print("Resultado:", "No se rechaza H0" if passed else "Se rechaza H0")
 
 
         elif option == "2":
