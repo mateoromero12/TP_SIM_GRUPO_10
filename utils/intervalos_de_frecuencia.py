@@ -1,6 +1,9 @@
 from typing import List, Tuple
 
-def calcular_intervalos_y_frecuencias(variables_aleatorias: List[float], cantidad_clases: int) -> Tuple[List[Tuple[float, float]], List[int]]:
+
+def calcular_intervalos_y_frecuencias(
+    variables_aleatorias: List[float], cantidad_clases: int
+) -> Tuple[List[Tuple[float, float]], List[int]]:
     """
     Calcula los intervalos y las frecuencias de las variables aleatorias generadas.
 
@@ -32,7 +35,7 @@ def calcular_intervalos_y_frecuencias(variables_aleatorias: List[float], cantida
     # Asignar cada variable al intervalo correspondiente
     for numero in variables_aleatorias:
         indice = int((numero - valor_min) / tamanio_intervalo)
-        if indice == cantidad_clases: 
+        if indice == cantidad_clases:
             indice -= 1
         frecuencias[indice] += 1
 

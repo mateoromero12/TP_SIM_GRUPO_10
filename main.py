@@ -4,6 +4,7 @@ from utils.mostar_por_consola import mostrar_variables_generadas, mostrar_interv
 from bondad.frec_esperadas import frecuencia_esperada
 from bondad.pruebas_bondad import chi_cuadrado, kolmogorov_smirnov
 
+
 def main() -> None:
     """
     Función principal que coordina la generación de variables aleatorias,
@@ -24,7 +25,9 @@ def main() -> None:
 
             cantidad_intervalos = obtener_cantidad_clases()
 
-            intervalos, frecuencias = calcular_intervalos_y_frecuencias(lista_aleatoria, cantidad_intervalos)
+            intervalos, frecuencias = calcular_intervalos_y_frecuencias(
+                lista_aleatoria, cantidad_intervalos
+            )
 
             mostrar_variables_generadas(lista_aleatoria, precision)
             mostrar_intervalos_y_frecuencias(intervalos, frecuencias, precision)
@@ -32,21 +35,30 @@ def main() -> None:
 
             if len(lista_aleatoria) > 30:
                 print("\n--- Prueba de Bondad Chi-Cuadrado ---")
-                frecuencias_esperadas = frecuencia_esperada(nombre_distribucion, len(lista_aleatoria), intervalos, parametros)
-                passed = chi_cuadrado(intervalos, frecuencias, frecuencias_esperadas, nombre_distribucion)
-                #print("Resultado:", "No se rechaza H0" if passed else "Se rechaza H0")
+                frecuencias_esperadas = frecuencia_esperada(
+                    nombre_distribucion, len(lista_aleatoria), intervalos, parametros
+                )
+                passed = chi_cuadrado(
+                    intervalos, frecuencias, frecuencias_esperadas, nombre_distribucion
+                )
+                # print("Resultado:", "No se rechaza H0" if passed else "Se rechaza H0")
 
             else:
                 print("\n--- Prueba de Bondad Kolmogorov-Smirnov ---")
-                frecuencias_esperadas = frecuencia_esperada(nombre_distribucion, len(lista_aleatoria), intervalos, parametros)
-                passed = kolmogorov_smirnov(intervalos, frecuencias, frecuencias_esperadas, len(lista_aleatoria))
-                #print("Resultado:", "No se rechaza H0" if passed else "Se rechaza H0")
+                frecuencias_esperadas = frecuencia_esperada(
+                    nombre_distribucion, len(lista_aleatoria), intervalos, parametros
+                )
+                passed = kolmogorov_smirnov(
+                    intervalos, frecuencias, frecuencias_esperadas, len(lista_aleatoria)
+                )
+                # print("Resultado:", "No se rechaza H0" if passed else "Se rechaza H0")
 
         elif opcion == "2":
             print("Saliendo del programa. ¡Hasta luego!")
             break
         else:
             print("Opción inválida. Por favor, elige 1 o 2.")
+
 
 if __name__ == '__main__':
     main()

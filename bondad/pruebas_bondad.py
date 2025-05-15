@@ -1,13 +1,19 @@
 from scipy.stats import chi2
 from bondad.valores import ks_tabulado
 import numpy as np
-from bondad.display_resultados import mostrar_tabla_chi_agrupado, mostrar_resultado_chi, mostrar_resultado_ks, mostrar_tabla_frecuencias
+from bondad.display_resultados import (
+    mostrar_tabla_chi_agrupado,
+    mostrar_resultado_chi,
+    mostrar_resultado_ks,
+    mostrar_tabla_frecuencias,
+)
+
 
 def chi_cuadrado(intervalos, fo, fe, distribucion: str) -> bool:
     """
     Implementa la prueba de bondad de ajuste Chi-cuadrado siguiendo el enfoque teórico del material,
     incluyendo la agrupación de clases con frecuencia esperada < 5.
-    
+
     Args:
         intervalos: lista de tuplas con los extremos de cada clase.
         fo: lista de frecuencias observadas.
@@ -76,6 +82,7 @@ def chi_cuadrado(intervalos, fo, fe, distribucion: str) -> bool:
     mostrar_resultado_chi(estadistico, valor_critico, gl)
 
     return estadistico <= valor_critico
+
 
 def kolmogorov_smirnov(intervalos, fo, fe, n: int) -> bool:
     """

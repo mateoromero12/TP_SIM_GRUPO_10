@@ -5,6 +5,7 @@ from utils.generadores import (
     generar_normal,
 )
 
+
 def obtener_cantidad_clases() -> int:
     opciones_clases = {1: 10, 2: 15, 3: 20, 4: 25}
 
@@ -18,6 +19,7 @@ def obtener_cantidad_clases() -> int:
         eleccion = int(input('Ingresa tu elección: '))
 
     return opciones_clases[eleccion]
+
 
 def obtener_variables_aleatorias(precision: int) -> Tuple[List[float], int, Tuple[float, float]]:
     max_tamanio_muestra = 1000000
@@ -48,7 +50,7 @@ def obtener_variables_aleatorias(precision: int) -> Tuple[List[float], int, Tupl
             print('Lambda inválido. Lambda debe ser mayor que 0.')
             lambda_val = float(input('Ingresa lambda (λ): '))
         muestra = generar_exponencial(tamanio_muestra, precision, lambda_val)
-        return muestra, 2, (lambda_val)
+        return muestra, 2, (lambda_val,)
 
     elif eleccion_distribucion == 3:
         media = float(input('Ingresa la media (μ): '))

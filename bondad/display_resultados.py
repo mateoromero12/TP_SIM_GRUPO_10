@@ -30,24 +30,24 @@ def mostrar_resultado_chi(estadistico: float, valor_critico: float, gl: int) -> 
         "No se rechaza H0" if estadistico <= valor_critico else "Se rechaza H0"
     ]]
     print("\nResultado Chi-Cuadrado:")
-    print(tabulate(tabla, headers=["Estadístico Chi", "Valor Crítico", "Grados Libertad", "α","Conclusión"], tablefmt="github"))
-
+    print(tabulate(tabla, headers=["Estadístico Chi", "Valor Crítico", "Grados Libertad", "α", "Conclusión"], tablefmt="github"))
 
 
 def mostrar_resultado_ks(intervalos: List[Tuple[float, float]], fo: List[int], fe: List[float], n: int, estadistico: float, valor_critico: float) -> None:
     po = [round(f / n, 4) for f in fo]
     pe = [round(f / n, 4) for f in fe]
 
-    po_ac = [round(sum(po[:i+1]), 4) for i in range(len(po))]
-    pe_ac = [round(sum(pe[:i+1]), 4) for i in range(len(pe))]
+    po_ac = [round(sum(po[:i + 1]), 4) for i in range(len(po))]
+    pe_ac = [round(sum(pe[:i + 1]), 4) for i in range(len(pe))]
     difs = [round(abs(po_ac[i] - pe_ac[i]), 4) for i in range(len(po))]
 
     tabla = [[f"[{a:.4f}, {b:.4f})", fo[i], fe[i], po_ac[i], pe_ac[i], difs[i]]
-             for i, (a, b) in enumerate(intervalos)]
+              for i, (a, b) in enumerate(intervalos)]
 
     print("\nResultado Kolmogorov-Smirnov:")
     print(tabulate(tabla, headers=["Intervalo", "Fo", "Fe", "PoAC", "PeAC", "|PoAC - PeAC|"], tablefmt="github"))
 
-    resumen = [[round(estadistico, 4), round(valor_critico, 4), sum(fo), "0.05", "No se rechaza H0" if estadistico <= valor_critico else "Se rechaza H0"]]
+    resumen = [[round(estadistico, 4), round(valor_critico, 4), sum(fo), "0.05",
+                "No se rechaza H0" if estadistico <= valor_critico else "Se rechaza H0"]]
     print("\nResumen KS:")
     print(tabulate(resumen, headers=["Estadístico KS", "Valor Crítico", "Tamaño Muestra", "α", "Conclusión"], tablefmt="github"))

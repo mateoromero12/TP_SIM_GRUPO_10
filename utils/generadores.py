@@ -3,17 +3,20 @@ import numpy as np
 from math import pi
 from typing import List, Tuple
 
+
 def generar_uniforme(tamanio_muestra: int, precision: int, a: float, b: float) -> List[float]:
     """
     Genera variables aleatorias con distribución uniforme en el intervalo [a, b).
     """
     return [round(a + random.random() * (b - a), precision) for _ in range(tamanio_muestra)]
 
+
 def generar_exponencial(tamanio_muestra: int, precision: int, lambda_val: float) -> List[float]:
     """
     Genera números aleatorios con distribución exponencial usando lambda.
     """
     return [round(-np.log(1 - random.random()) / lambda_val, precision) for _ in range(tamanio_muestra)]
+
 
 def generar_normal(tamanio_muestra: int, precision: int, media: float, desviacion: float) -> List[float]:
     """
@@ -27,6 +30,7 @@ def generar_normal(tamanio_muestra: int, precision: int, media: float, desviacio
         if len(numeros_aleatorios) >= tamanio_muestra:
             break
     return numeros_aleatorios[:tamanio_muestra]
+
 
 def generar_normal_box_muller(media: float, desviacion: float) -> Tuple[float, float]:
     """

@@ -2,6 +2,7 @@ from typing import List, Tuple
 import matplotlib.pyplot as plt
 from tabulate import tabulate
 
+
 def mostrar_variables_generadas(variables_aleatorias: List[float], precision: int) -> None:
     """
     Muestra las variables aleatorias generadas en la consola.
@@ -13,7 +14,10 @@ def mostrar_variables_generadas(variables_aleatorias: List[float], precision: in
     print('\nVariables aleatorias generadas:')
     print(', '.join(f'{numero:.{precision}f}' for numero in variables_aleatorias))
 
-def mostrar_intervalos_y_frecuencias(intervalos: List[Tuple[float, float]], frecuencias: List[int], precision: int) -> None:
+
+def mostrar_intervalos_y_frecuencias(
+    intervalos: List[Tuple[float, float]], frecuencias: List[int], precision: int
+) -> None:
     """
     Muestra los intervalos y las frecuencias en formato tabular usando tabulate.
     """
@@ -24,7 +28,10 @@ def mostrar_intervalos_y_frecuencias(intervalos: List[Tuple[float, float]], frec
     print("\nIntervalos y frecuencias:")
     print(tabulate(tabla, headers=["Intervalo", "Frecuencia Observada"], tablefmt="github"))
 
-def graficar_histograma(intervalos: List[Tuple[float, float]], frecuencias: List[int], precision: int) -> None:
+
+def graficar_histograma(
+    intervalos: List[Tuple[float, float]], frecuencias: List[int], precision: int
+) -> None:
     """
     Genera un histograma a partir de los intervalos y frecuencias.
 
@@ -36,7 +43,10 @@ def graficar_histograma(intervalos: List[Tuple[float, float]], frecuencias: List
     plt.bar(
         range(len(intervalos)),
         frecuencias,
-        tick_label=[f'[{lim_inf:.{precision}f}, {lim_sup:.{precision}f})' for lim_inf, lim_sup in intervalos]
+        tick_label=[
+            f'[{lim_inf:.{precision}f}, {lim_sup:.{precision}f})'
+            for lim_inf, lim_sup in intervalos
+        ]
     )
     plt.xlabel('Intervalos')
     plt.ylabel('Frecuencia')
