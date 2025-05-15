@@ -1,2 +1,8 @@
 numpy
+<<<<<<< HEAD
 matplotlib
+=======
+matplotlib
+scipy
+tabulate
+>>>>>>> origin/mateo

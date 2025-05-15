@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -77,3 +78,8 @@ celerybeat-schedule
 celerybeat.pid
 
 # Sage
+=======
+/.venv
+/bondad/__pycache__
+/utils/__pycache__
+>>>>>>> origin/mateo
