@@ -4,59 +4,82 @@ from utils.generadores import (
     generar_exponencial,
     generar_normal,
 )
+from utils.validador_input import pedir_float, pedir_int
 
 
 def obtener_cantidad_clases() -> int:
-    opciones_clases = {1: 10, 2: 15, 3: 20, 4: 25}
+    """
+    Permite al usuario seleccionar la cantidad de intervalos (clases) para un histograma.
 
+    Returns:
+        int: Cantidad de clases seleccionada por el usuario.
+    """
+    opciones_clases = {1: 10, 2: 15, 3: 20, 4: 25}
     print('Elige el número de intervalos:')
     for clave, valor in opciones_clases.items():
         print(f'{clave}: {valor}')
-
-    eleccion = int(input('Ingresa tu elección: '))
-    while eleccion not in opciones_clases.keys():
-        print('Elección inválida. Por favor, elige nuevamente.')
-        eleccion = int(input('Ingresa tu elección: '))
-
+    eleccion = pedir_int(
+        'Ingresa tu elección: ',
+        condicion=lambda x: x in opciones_clases,
+        mensaje_error='Elección inválida. Por favor, elige nuevamente.'
+    )
     return opciones_clases[eleccion]
 
 
-def obtener_variables_aleatorias(precision: int) -> Tuple[List[float], int, Tuple[float, float]]:
+def obtener_variables_aleatorias(
+    precision: int
+) -> Tuple[List[float], int, Tuple[float, float]]:
+    """
+    Solicita al usuario los parámetros para generar una muestra de variables aleatorias
+    según una distribución seleccionada (Uniforme, Exponencial o Normal).
+
+    Args:
+        precision (int): Cantidad de decimales para los números generados.
+
+    Returns:
+        Tuple[List[float], int, Tuple[float, float]]:
+            - Lista de variables aleatorias generadas.
+            - Código de la distribución seleccionada (1: Uniforme, 2: Exponencial, 3: Normal).
+            - Tupla con los parámetros usados para la generación.
+    """
     max_tamanio_muestra = 1000000
-
-    tamanio_muestra = int(input('Ingresa el tamaño de la muestra: '))
-    while tamanio_muestra <= 0 or tamanio_muestra > max_tamanio_muestra:
-        print(f'El tamaño de la muestra debe estar entre 1 y {max_tamanio_muestra}')
-        tamanio_muestra = int(input('Ingresa el tamaño de la muestra: '))
-
-    eleccion_distribucion = int(input('Elige la distribución (1: Uniforme, 2: Exponencial, 3: Normal): '))
-    while eleccion_distribucion not in [1, 2, 3]:
-        print('Elección de distribución inválida. Por favor, elige 1, 2 o 3.')
-        eleccion_distribucion = int(input('Elige la distribución (1: Uniforme, 2: Exponencial, 3: Normal): '))
+    tamanio_muestra = pedir_int(
+        'Ingresa el tamaño de la muestra: ',
+        condicion=lambda x: 0 < x <= max_tamanio_muestra,
+        mensaje_error=(
+            f'El tamaño de la muestra debe estar entre 1 y {max_tamanio_muestra}'
+        )
+    )
+    print('Elige la distribución (1: Uniforme, 2: Exponencial, 3: Normal): ')
+    eleccion_distribucion = pedir_int(
+        '',
+        condicion=lambda x: x in [1, 2, 3],
+        mensaje_error='Elección de distribución inválida. Por favor, elige 1, 2 o 3.'
+    )
 
     if eleccion_distribucion == 1:
-        a = float(input('Ingresa el límite inferior (a): '))
-        b = float(input('Ingresa el límite superior (b): '))
-        while a >= b:
-            print('Límites inválidos. El límite inferior debe ser menor que el límite superior.')
-            a = float(input('Ingresa el límite inferior (a): '))
-            b = float(input('Ingresa el límite superior (b): '))
+        a = pedir_float('Ingresa el límite inferior (a): ')
+        b = pedir_float(
+            'Ingresa el límite superior (b): ',
+            condicion=lambda x: x > a,
+            mensaje_error='El límite superior debe ser mayor que el inferior.'
+        )
         muestra = generar_uniforme(tamanio_muestra, precision, a, b)
         return muestra, 1, (a, b)
-
     elif eleccion_distribucion == 2:
-        lambda_val = float(input('Ingresa lambda (λ): '))
-        while lambda_val <= 0:
-            print('Lambda inválido. Lambda debe ser mayor que 0.')
-            lambda_val = float(input('Ingresa lambda (λ): '))
+        lambda_val = pedir_float(
+            'Ingresa lambda (λ): ',
+            condicion=lambda x: x > 0,
+            mensaje_error='Lambda debe ser mayor que 0.'
+        )
         muestra = generar_exponencial(tamanio_muestra, precision, lambda_val)
         return muestra, 2, (lambda_val,)
-
     elif eleccion_distribucion == 3:
-        media = float(input('Ingresa la media (μ): '))
-        desviacion = float(input('Ingresa la desviación estándar (σ): '))
-        while desviacion <= 0:
-            print('Desviación estándar inválida. Debe ser mayor que 0.')
-            desviacion = float(input('Ingresa la desviación estándar (σ): '))
+        media = pedir_float('Ingresa la media (μ): ')
+        desviacion = pedir_float(
+            'Ingresa la desviación estándar (σ): ',
+            condicion=lambda x: x > 0,
+            mensaje_error='Desviación estándar debe ser mayor que 0.'
+        )
         muestra = generar_normal(tamanio_muestra, precision, media, desviacion)
         return muestra, 3, (media, desviacion)
