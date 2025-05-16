@@ -8,6 +8,18 @@ from bondad.display_resultados import (
     mostrar_tabla_frecuencias,
 )
 
+def valorAlfa():
+    """
+    Solicita al usuario el nivel de significancia (alfa) y lo valida.
+
+    Returns:
+        float: El nivel de significancia ingresado por el usuario.
+    """
+    alfa = float(input("Ingrese el nivel de significancia: "))
+    while alfa <= 0 or alfa >= 1:
+        print("El nivel de significancia debe estar entre 0 y 1.")
+        alfa = float(input("Ingrese el nivel de significancia: "))
+    return alfa
 
 def chi_cuadrado(intervalos, fo, fe, distribucion: str) -> bool:
     """
@@ -77,8 +89,9 @@ def chi_cuadrado(intervalos, fo, fe, distribucion: str) -> bool:
     if gl <= 0:
         print("No hay suficientes grados de libertad para aplicar la prueba de Chi-cuadrado.")
         return False
-
-    valor_critico = chi2.ppf(0.95, gl)
+    
+    alfa = valorAlfa()
+    valor_critico = chi2.ppf(alfa, gl)
     mostrar_resultado_chi(estadistico, valor_critico, gl)
 
     return estadistico <= valor_critico
@@ -107,11 +120,12 @@ def kolmogorov_smirnov(intervalos, fo, fe, n: int) -> bool:
 
     diferencias = [round(abs(po_ac[i] - pe_ac[i]), 4) for i in range(k)]
     estadistico = max(diferencias)
+    alfa = valorAlfa()
 
-    if n <= 40:
+    if n <= 30:
         valor_critico = ks_tabulado[n - 1]
     else:
-        valor_critico = round(1.36 / (n ** 0.5), 4)
+        valor_critico = round(1.36 / (n ** alfa), 4)
 
     mostrar_resultado_ks(intervalos, fo, fe, n, estadistico, valor_critico)
 
